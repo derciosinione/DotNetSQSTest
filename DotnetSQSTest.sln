@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SQS.Consumidor", "SQS.Consumidor\SQS.Consumidor.csproj", "{91977B53-7C48-46EA-9E36-E6F2A923A959}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SQS.Fornecedor", "SQS.Fornecedor\SQS.Fornecedor.csproj", "{B1A361D3-7928-4902-9135-A33E7BDC0354}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{91977B53-7C48-46EA-9E36-E6F2A923A959}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{91977B53-7C48-46EA-9E36-E6F2A923A959}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{91977B53-7C48-46EA-9E36-E6F2A923A959}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{91977B53-7C48-46EA-9E36-E6F2A923A959}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B1A361D3-7928-4902-9135-A33E7BDC0354}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B1A361D3-7928-4902-9135-A33E7BDC0354}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B1A361D3-7928-4902-9135-A33E7BDC0354}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B1A361D3-7928-4902-9135-A33E7BDC0354}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
