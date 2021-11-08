@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Amazon;
@@ -17,16 +18,11 @@ namespace SQS.Consumidor
         {
             var sqsClient = new AmazonSQSClient(RegionEndpoint.USEast1);
             
-            var user = new Users();
             const int messageWaitTime = 15;
 
             var response = await ReciveMessageAsync(sqsClient, QueeueUrl, messageWaitTime);
-            
-            foreach (var message in response.Messages)
-            { 
-                user = JsonSerializer.Deserialize<Users>(message.Body);
-                await DeleteMessageAsync(sqsClient, QueeueUrl, message);
-            }
+
+            var user = await ReadMessageAsync(sqsClient, response);
             
             VerifyIfThereIsRecivedMessage(user, response.Messages.Any());
         }
@@ -42,16 +38,33 @@ namespace SQS.Consumidor
             return await sqsClient.ReceiveMessageAsync(request);
         }
 
+        private static async Task<IEnumerable<Users>> ReadMessageAsync(IAmazonSQS sqsClient, ReceiveMessageResponse response)
+        {
+            List<Users> usersList = new List<Users>();
+            
+            if (response.Messages.Any())
+            {
+                foreach (var message in response.Messages)
+                { 
+                    var user = JsonSerializer.Deserialize<Users>(message.Body);
+                    Console.WriteLine($"Recived username: {user.Nome}");
+                    usersList.Add(user);
+                    await DeleteMessageAsync(sqsClient, QueeueUrl, message);
+                }
+            }
+            return usersList;
+        }
+        
         private static async Task DeleteMessageAsync(IAmazonSQS sqsClient, string qUrl, Message message)
         {
             await sqsClient.DeleteMessageAsync(qUrl, message.ReceiptHandle);
         }
         
-        private static void VerifyIfThereIsRecivedMessage(Users user, bool hasMessage)
+        private static void VerifyIfThereIsRecivedMessage(IEnumerable<Users> users, bool hasMessage)
         {
             if (hasMessage)
             { 
-                Console.WriteLine($"Recived user {user.Nome} with email: {user.Email}"); 
+                Console.WriteLine($"Recived {users.Count()} users"); 
                 Console.WriteLine("Mensagem recebida com sucesso!!!");
             }
         }
