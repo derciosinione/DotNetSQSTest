@@ -3,6 +3,8 @@ using System.Threading.Tasks;
 using Amazon;
 using Amazon.SQS;
 using Amazon.SQS.Model;
+using Data;
+using Newtonsoft.Json;
 
 namespace SQS.Consumidor
 {
@@ -16,18 +18,24 @@ namespace SQS.Consumidor
             var request = new ReceiveMessageRequest
             {
                 QueueUrl = queeueUrl,
-                // WaitTimeSeconds = 20
+                WaitTimeSeconds = 15
             };
             
             var response = await client.ReceiveMessageAsync(request);
-
+            var user = new Users();
+            
             foreach (var message in response.Messages)
             { 
                 Console.WriteLine(message.Body);
-                // await client.DeleteMessageAsync(queeueUrl, message.ReceiptHandle);
+                user = JsonConvert.DeserializeObject<Users>(message.Body);
+                await client.DeleteMessageAsync(queeueUrl, message.ReceiptHandle);
             }
-            
-            Console.WriteLine("Mensagem recebida com sucesso!!!");
+
+            if (response.Messages.Count > 0)
+            { 
+                Console.WriteLine($"Recived user {user.Nome} with email: {user.Email}"); 
+                Console.WriteLine("Mensagem recebida com sucesso!!!");
+            }
 
         }
     }

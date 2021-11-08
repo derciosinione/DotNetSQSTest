@@ -4,6 +4,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SQS.Consumidor", "SQS.Consu
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SQS.Fornecedor", "SQS.Fornecedor\SQS.Fornecedor.csproj", "{B1A361D3-7928-4902-9135-A33E7BDC0354}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Data", "Data\Data.csproj", "{4FBDA47B-0646-46B6-9B32-117C99116C84}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,5 +20,9 @@ Global
 		{B1A361D3-7928-4902-9135-A33E7BDC0354}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B1A361D3-7928-4902-9135-A33E7BDC0354}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B1A361D3-7928-4902-9135-A33E7BDC0354}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4FBDA47B-0646-46B6-9B32-117C99116C84}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4FBDA47B-0646-46B6-9B32-117C99116C84}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4FBDA47B-0646-46B6-9B32-117C99116C84}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4FBDA47B-0646-46B6-9B32-117C99116C84}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

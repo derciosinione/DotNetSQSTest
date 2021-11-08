@@ -1,4 +1,4 @@
-namespace SQS.Fornecedor
+namespace Data
 {
     public class Users
     {
