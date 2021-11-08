@@ -4,7 +4,7 @@ using Amazon;
 using Amazon.SQS;
 using Amazon.SQS.Model;
 using Data;
-using Newtonsoft.Json;
+using System.Text.Json;
 
 namespace SQS.Consumidor
 {
@@ -27,7 +27,8 @@ namespace SQS.Consumidor
             foreach (var message in response.Messages)
             { 
                 Console.WriteLine(message.Body);
-                user = JsonConvert.DeserializeObject<Users>(message.Body);
+                user = JsonSerializer.Deserialize<Users>(message.Body);
+
                 await client.DeleteMessageAsync(queeueUrl, message.ReceiptHandle);
             }
 

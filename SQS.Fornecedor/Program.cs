@@ -1,10 +1,10 @@
 ﻿using System;
+using System.Text.Json;
 using System.Threading.Tasks;
 using Amazon;
 using Amazon.SQS;
 using Amazon.SQS.Model;
 using Data;
-using Newtonsoft.Json;
 
 
 namespace SQS.Fornecedor
@@ -21,7 +21,7 @@ namespace SQS.Fornecedor
                 Idade = 21
             };
 
-            var convertedObject = JsonConvert.SerializeObject(user);
+            var convertedObject = JsonSerializer.Serialize(user);
             
             var client = new AmazonSQSClient(RegionEndpoint.USEast1);
             var request = new SendMessageRequest
