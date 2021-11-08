@@ -12,7 +12,7 @@ namespace SQS.Consumidor
 {
     class Consumidor
     {
-        private const string QueeueUrl = "https://sqs.us-east-1.amazonaws.com/852704159394/drcash-logs-api-test";
+        private const string QueueUrl = "https://sqs.us-east-1.amazonaws.com/852704159394/drcash-logs-api-test";
 
         static async Task Main(string[] args)
         {
@@ -20,7 +20,7 @@ namespace SQS.Consumidor
             
             const int messageWaitTime = 15;
 
-            var response = await ReciveMessageAsync(sqsClient, QueeueUrl, messageWaitTime);
+            var response = await ReciveMessageAsync(sqsClient, QueueUrl, messageWaitTime);
 
             var users = await ReadMessageAsync(sqsClient, response);
             
@@ -51,7 +51,7 @@ namespace SQS.Consumidor
                     var user = JsonSerializer.Deserialize<Users>(message.Body);
                     Console.WriteLine($"Recived username: {user?.Nome}");
                     usersList.Add(user);
-                    await DeleteMessageAsync(sqsClient, QueeueUrl, message);
+                    await DeleteMessageAsync(sqsClient, QueueUrl, message);
                 }
             }
             return usersList;

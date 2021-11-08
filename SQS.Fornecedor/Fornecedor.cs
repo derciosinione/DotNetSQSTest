@@ -12,7 +12,7 @@ namespace SQS.Fornecedor
 {
     class Fornecedor
     {
-       private const string QueeueUrl = "https://sqs.us-east-1.amazonaws.com/852704159394/drcash-logs-api-test";
+       private const string QueueUrl = "https://sqs.us-east-1.amazonaws.com/852704159394/drcash-logs-api-test";
 
         static async Task Main(string[] args)
         {
@@ -26,7 +26,7 @@ namespace SQS.Fornecedor
 
             var sqsClient = new AmazonSQSClient(RegionEndpoint.USEast1);
             var message = JsonSerializer.Serialize(user);
-            await SendMessageAsync(sqsClient, QueeueUrl, message);
+            await SendMessageAsync(sqsClient, QueueUrl, message);
         }
 
         private static async Task SendMessageAsync(IAmazonSQS sqsClient, string qUrl, string messageBody)
