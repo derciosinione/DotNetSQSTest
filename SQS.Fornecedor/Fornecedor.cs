@@ -26,7 +26,7 @@ namespace SQS.Fornecedor
 
             var sqsClient = new AmazonSQSClient(RegionEndpoint.USEast1);
             var message = JsonSerializer.Serialize(user);
-            await SendMessageAync(sqsClient, queeueUrl, message);
+            await SendMessageAsync(sqsClient, queeueUrl, message);
         }
 
         private static async Task SendMessageAsync(IAmazonSQS sqsClient, string qUrl, string messageBody)
