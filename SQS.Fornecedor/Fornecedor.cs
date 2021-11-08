@@ -39,7 +39,7 @@ namespace SQS.Fornecedor
             
             var response = await sqsClient.SendMessageAsync(request);
 
-            if(response.HttpStatusCode == HttpStatusCode.Accepted)
+            if(response.HttpStatusCode == HttpStatusCode.OK)
                 Console.WriteLine("Mensagem enviada com sucesso!!!");
         }
     }
