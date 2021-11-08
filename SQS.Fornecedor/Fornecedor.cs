@@ -24,14 +24,20 @@ namespace SQS.Fornecedor
                 Idade = 21
             };
 
-            var client = new AmazonSQSClient(RegionEndpoint.USEast1);
+            var sqsClient = new AmazonSQSClient(RegionEndpoint.USEast1);
+            var message = JsonSerializer.Serialize(user);
+            await SendMessage(sqsClient, queeueUrl, message);
+        }
+
+        private static async Task SendMessage(IAmazonSQS sqsClient, string qUrl, string messageBody)
+        {
             var request = new SendMessageRequest
             {
-                QueueUrl = queeueUrl,
-                MessageBody = JsonSerializer.Serialize(user)
+                QueueUrl = qUrl,
+                MessageBody = messageBody
             };
             
-            var response = await client.SendMessageAsync(request);
+            var response = await sqsClient.SendMessageAsync(request);
 
             if(response.HttpStatusCode == HttpStatusCode.Accepted)
                 Console.WriteLine("Mensagem enviada com sucesso!!!");
