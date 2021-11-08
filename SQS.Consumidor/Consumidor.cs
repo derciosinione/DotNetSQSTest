@@ -11,10 +11,10 @@ namespace SQS.Consumidor
 {
     class Consumidor
     {
+        const string queeueUrl = "https://sqs.us-east-1.amazonaws.com/852704159394/drcash-logs-api-test";
+
         static async Task Main(string[] args)
         {
-            string queeueUrl = "https://sqs.us-east-1.amazonaws.com/852704159394/drcash-logs-api-test";
-            
             var client = new AmazonSQSClient(RegionEndpoint.USEast1);
             var request = new ReceiveMessageRequest
             {
