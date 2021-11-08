@@ -25,7 +25,7 @@ namespace SQS.Consumidor
             foreach (var message in response.Messages)
             { 
                 user = JsonSerializer.Deserialize<Users>(message.Body);
-                await client.DeleteMessageAsync(QueeueUrl, message.ReceiptHandle);
+                await DeleteMessageAsync(sqsClient, QueeueUrl, message);
             }
             
             VerifyIfThereIsRecivedMessage(user, response.Messages.Any());
@@ -42,6 +42,11 @@ namespace SQS.Consumidor
             return await sqsClient.ReceiveMessageAsync(request);
         }
 
+        private static async Task DeleteMessageAsync(IAmazonSQS sqsClient, string qUrl, Message message)
+        {
+            await sqsClient.DeleteMessageAsync(qUrl, message.ReceiptHandle);
+        }
+        
         private static void VerifyIfThereIsRecivedMessage(Users user, bool hasMessage)
         {
             if (hasMessage)
