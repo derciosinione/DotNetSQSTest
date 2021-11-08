@@ -12,12 +12,12 @@ namespace SQS.Consumidor
     {
         static async Task Main(string[] args)
         {
-            string queeueUrl = "https://sqs.us-east-1.amazonaws.com/852704159394/drcash-logs-api-test";
+            const string QueueAmazonawsUrl = "https://sqs.us-east-1.amazonaws.com/852704159394/drcash-logs-api-test";
             
             var client = new AmazonSQSClient(RegionEndpoint.USEast1);
             var request = new ReceiveMessageRequest
             {
-                QueueUrl = queeueUrl,
+                QueueUrl = QueueAmazonawsUrl,
                 WaitTimeSeconds = 15
             };
             
