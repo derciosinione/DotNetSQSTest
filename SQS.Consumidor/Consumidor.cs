@@ -49,7 +49,7 @@ namespace SQS.Consumidor
                 foreach (var message in response.Messages)
                 { 
                     var user = JsonSerializer.Deserialize<Users>(message.Body);
-                    Console.WriteLine($"Recived username: {user.Nome}");
+                    Console.WriteLine($"Recived username: {user?.Nome}");
                     usersList.Add(user);
                     await DeleteMessageAsync(sqsClient, QueeueUrl, message);
                 }
