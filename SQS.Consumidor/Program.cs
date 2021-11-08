@@ -34,11 +34,11 @@ namespace SQS.Consumidor
                 await client.DeleteMessageAsync(queeueUrl, message.ReceiptHandle);
             }
 
-            this.ReceiveMessageUser(response.Messages.Count);
+            this.ReceiveMessageUser(response.Messages.Count, user);
 
         }
 
-        public void ReceiveMessageUser(int countMessage){
+        public void ReceiveMessageUser(int countMessage,Users user){
             if (countMessaget > 0)
             {
                 Console.WriteLine($"Recived user {user.Nome} with email: {user.Email}");
