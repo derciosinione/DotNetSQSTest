@@ -16,7 +16,7 @@ namespace SQS.Consumidor
             var request = new ReceiveMessageRequest
             {
                 QueueUrl = queeueUrl,
-                WaitTimeSeconds = 20
+                // WaitTimeSeconds = 20
             };
             
             var response = await client.ReceiveMessageAsync(request);
@@ -24,8 +24,10 @@ namespace SQS.Consumidor
             foreach (var message in response.Messages)
             { 
                 Console.WriteLine(message.Body);
-                await client.DeleteMessageAsync(queeueUrl, message.ReceiptHandle);
+                // await client.DeleteMessageAsync(queeueUrl, message.ReceiptHandle);
             }
+            
+            Console.WriteLine("Mensagem recebida com sucesso!!!");
 
         }
     }
