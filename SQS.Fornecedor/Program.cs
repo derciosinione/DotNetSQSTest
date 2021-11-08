@@ -20,19 +20,23 @@ namespace SQS.Fornecedor
                 Email = "derciosinione@gmail.com",
                 Idade = 21
             };
-
-            var convertedObject = JsonSerializer.Serialize(user);
             
             var client = new AmazonSQSClient(RegionEndpoint.USEast1);
             var request = new SendMessageRequest
             {
                 QueueUrl = "https://sqs.us-east-1.amazonaws.com/852704159394/drcash-logs-api-test",
-                MessageBody = convertedObject,
+                MessageBody = this.ConvertedObject(user),
             };
             
             await client.SendMessageAsync(request);
             
             Console.WriteLine("Mensagem enviada com sucesso!!!");
         }
+
+        public string ConvertedObject(Users user){
+            return JsonConvert.SerializeObject(users);
+        }
+
+    
     }
 }
