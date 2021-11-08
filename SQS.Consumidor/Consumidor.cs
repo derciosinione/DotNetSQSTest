@@ -22,17 +22,19 @@ namespace SQS.Consumidor
 
             var response = await ReciveMessageAsync(sqsClient, QueeueUrl, messageWaitTime);
 
-            var user = await ReadMessageAsync(sqsClient, response);
+            var users = await ReadMessageAsync(sqsClient, response);
             
-            VerifyIfThereIsRecivedMessage(user, response.Messages.Any());
+            VerifyIfThereIsRecivedMessage(users, response.Messages.Any());
         }
 
         private static async Task<ReceiveMessageResponse> ReciveMessageAsync(IAmazonSQS sqsClient, string qUrl, int waitTime=0)
         {
+            const int maxMessages = 5;
             var request = new ReceiveMessageRequest
             {
                 QueueUrl = qUrl,
-                WaitTimeSeconds = waitTime
+                WaitTimeSeconds = waitTime,
+                MaxNumberOfMessages = maxMessages
             };
             
             return await sqsClient.ReceiveMessageAsync(request);
