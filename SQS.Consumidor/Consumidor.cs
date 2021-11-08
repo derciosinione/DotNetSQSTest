@@ -15,15 +15,12 @@ namespace SQS.Consumidor
 
         static async Task Main(string[] args)
         {
-            var client = new AmazonSQSClient(RegionEndpoint.USEast1);
-            var request = new ReceiveMessageRequest
-            {
-                QueueUrl = QueeueUrl,
-                WaitTimeSeconds = 15
-            };
+            var sqsClient = new AmazonSQSClient(RegionEndpoint.USEast1);
             
-            var response = await client.ReceiveMessageAsync(request);
             var user = new Users();
+            const int messageWaitTime = 15;
+
+            var response = await ReciveMessageAsync(sqsClient, QueeueUrl, messageWaitTime);
             
             foreach (var message in response.Messages)
             { 
@@ -32,6 +29,17 @@ namespace SQS.Consumidor
             }
             
             VerifyIfThereIsRecivedMessage(user, response.Messages.Any());
+        }
+
+        private static async Task<ReceiveMessageResponse> ReciveMessageAsync(IAmazonSQS sqsClient, string qUrl, int waitTime=0)
+        {
+            var request = new ReceiveMessageRequest
+            {
+                QueueUrl = qUrl,
+                WaitTimeSeconds = waitTime
+            };
+            
+            return await sqsClient.ReceiveMessageAsync(request);
         }
 
         private static void VerifyIfThereIsRecivedMessage(Users user, bool hasMessage)
