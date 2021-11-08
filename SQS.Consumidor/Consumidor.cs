@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using Amazon;
 using Amazon.SQS;
@@ -8,7 +9,7 @@ using System.Text.Json;
 
 namespace SQS.Consumidor
 {
-    class Program
+    class Consumidor
     {
         static async Task Main(string[] args)
         {
@@ -26,18 +27,20 @@ namespace SQS.Consumidor
             
             foreach (var message in response.Messages)
             { 
-                Console.WriteLine(message.Body);
                 user = JsonSerializer.Deserialize<Users>(message.Body);
-
                 await client.DeleteMessageAsync(queeueUrl, message.ReceiptHandle);
             }
+            
+            VerifyIfThereIsRecivedMessage(user, response.Messages.Any());
+        }
 
-            if (response.Messages.Count > 0)
+        private static void VerifyIfThereIsRecivedMessage(Users user, bool hasMessage)
+        {
+            if (hasMessage)
             { 
                 Console.WriteLine($"Recived user {user.Nome} with email: {user.Email}"); 
                 Console.WriteLine("Mensagem recebida com sucesso!!!");
             }
-
         }
     }
 }

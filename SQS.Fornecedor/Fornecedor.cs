@@ -9,7 +9,7 @@ using Data;
 
 namespace SQS.Fornecedor
 {
-    class Program
+    class Fornecedor
     {
         static async Task Main(string[] args)
         {
