@@ -13,31 +13,38 @@ namespace SQS.Consumidor
         static async Task Main(string[] args)
         {
             const string QueueAmazonawsUrl = "https://sqs.us-east-1.amazonaws.com/852704159394/drcash-logs-api-test";
-            
+            const int WaitTimeSecondsforRecived = 15;
+
             var client = new AmazonSQSClient(RegionEndpoint.USEast1);
             var request = new ReceiveMessageRequest
             {
                 QueueUrl = QueueAmazonawsUrl,
-                WaitTimeSeconds = 15
+                WaitTimeSeconds = WaitTimeSecondsforRecived
             };
-            
+
             var response = await client.ReceiveMessageAsync(request);
             var user = new Users();
-            
+
             foreach (var message in response.Messages)
-            { 
+            {
                 Console.WriteLine(message.Body);
+
                 user = JsonSerializer.Deserialize<Users>(message.Body);
 
                 await client.DeleteMessageAsync(queeueUrl, message.ReceiptHandle);
             }
 
-            if (response.Messages.Count > 0)
-            { 
-                Console.WriteLine($"Recived user {user.Nome} with email: {user.Email}"); 
-                Console.WriteLine("Mensagem recebida com sucesso!!!");
-            }
+            this.ReceiveMessageUser(response.Messages.Count);
 
         }
+
+        public void ReceiveMessageUser(int countMessage){
+            if (countMessaget > 0)
+            {
+                Console.WriteLine($"Recived user {user.Nome} with email: {user.Email}");
+                Console.WriteLine("Mensagem recebida com sucesso!!!");
+            }
+        }
+
     }
 }
