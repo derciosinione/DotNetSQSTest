@@ -11,6 +11,7 @@ namespace SQS.Fornecedor
 {
     class Program
     {
+        const string QueueAmazonawsUrl = "https://sqs.us-east-1.amazonaws.com/852704159394/drcash-logs-api-test";
         static async Task Main(string[] args)
         {
             var user = new Users
@@ -22,9 +23,10 @@ namespace SQS.Fornecedor
             };
             
             var client = new AmazonSQSClient(RegionEndpoint.USEast1);
+            
             var request = new SendMessageRequest
             {
-                QueueUrl = "https://sqs.us-east-1.amazonaws.com/852704159394/drcash-logs-api-test",
+                QueueUrl = QueueAmazonawsUrl,
                 MessageBody = this.ConvertedObject(user),
             };
             
