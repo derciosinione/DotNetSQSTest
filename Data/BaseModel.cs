@@ -6,7 +6,7 @@ namespace Data
 
         public string Id { get; set; }
 
-        public Microservice Microservice { get; set; }
+        public Service Service { get; set; }
 
         public string Action {get; set;}
     

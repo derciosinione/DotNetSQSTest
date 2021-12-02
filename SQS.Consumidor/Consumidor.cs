@@ -40,21 +40,21 @@ namespace SQS.Consumidor
             return await sqsClient.ReceiveMessageAsync(request);
         }
 
-        private static async Task<IEnumerable<Users>> ReadMessageAsync(IAmazonSQS sqsClient, ReceiveMessageResponse response)
+        private static async Task<IEnumerable<Identity>> ReadMessageAsync(IAmazonSQS sqsClient, ReceiveMessageResponse response)
         {
-            List<Users> usersList = new List<Users>();
+            List<Identity> identityList = new List<Identity>();
             
             if (response.Messages.Any())
             {
                 foreach (var message in response.Messages)
                 { 
-                    var user = JsonSerializer.Deserialize<Users>(message.Body);
-                    Console.WriteLine($"Recived username: {user?.Nome}");
-                    usersList.Add(user);
+                    var identity = JsonSerializer.Deserialize<Identity>(message.Body);
+                    Console.WriteLine($"Recived username: {identity?.Service.Name}");
+                    identityList.Add(identity);
                     await DeleteMessageAsync(sqsClient, QueueUrl, message);
                 }
             }
-            return usersList;
+            return identityList;
         }
         
         private static async Task DeleteMessageAsync(IAmazonSQS sqsClient, string qUrl, Message message)
@@ -62,11 +62,11 @@ namespace SQS.Consumidor
             await sqsClient.DeleteMessageAsync(qUrl, message.ReceiptHandle);
         }
         
-        private static void VerifyIfThereIsRecivedMessage(IEnumerable<Users> users, bool hasMessage)
+        private static void VerifyIfThereIsRecivedMessage(IEnumerable<Identity> identity, bool hasMessage)
         {
             if (hasMessage)
             { 
-                Console.WriteLine($"Recived {users.Count()} users"); 
+                Console.WriteLine($"Recived {identity.Count()} users"); 
                 Console.WriteLine("Mensagem recebida com sucesso!!!");
             }
         }
